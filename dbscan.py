@@ -1,4 +1,5 @@
 # https://scikit-learn.org/stable/auto_examples/text/plot_document_clustering.html
+#  https://blog.actorsfit.com/a?ID=01200-8ebad02f-e0c4-4331-ad29-2b56456133b0
 # Author: Peter Prettenhofer <peter.prettenhofer@gmail.com>  zz
 #         Lars Buitinck
 # License: BSD 3 clause
@@ -105,10 +106,9 @@ categories = [
 #print(categories)
 
 d_folder = "C:/Data/"
-#collection_name = "R4"
+collection_name = "R4"
 #collection_name = "crisis3"
-#collection_name = "NG5"
-collection_name = "NG6Full"
+#collection_name = "N3"
 #collection_name = "NG3Full"
 
 #container_path = Path("C:/Data/N3")
@@ -119,7 +119,7 @@ container_path = Path(d_folder + collection_name)
 #container_path = Path("C:/Data/NG4")
 
 datan = sklearn.datasets.load_files(container_path,  description=None, categories=None, load_content=True,
-                                    shuffle=True, encoding='utf-8', decode_error='ignore', random_state=0, allowed_extensions=None)
+                                    shuffle=True, encoding=None, decode_error='strict', random_state=0, allowed_extensions=None)
 #print("%d categories  " % len(datan))
 
 #dataset = fetch_20newsgroups(
@@ -168,11 +168,10 @@ else:
         min_df=2,
         stop_words="english",
         use_idf=opts.use_idf,
-        
     )
 
 #clustering runs
-for i in range(7):
+for i in range(2):
   X = vectorizer.fit_transform(dataset.data)
 
   print("done in %fs" % (time() - t0))
@@ -187,24 +186,48 @@ for i in range(7):
       verbose=opts.verbose,
   )
 
+  DBS_clf = DBSCAN(eps=1, min_samples=4)
+  DBS_clf.fit(X)
+  dblab = DBS_clf.labels_
+  #print(dblab)
+
+  n_clusters_ = len(set(labels)) - (1 if -1 in labels else 0)
+  print('Estimated number of clusters: %d' % n_clusters_)
+
+ # db = DBSCAN(
+ #     eps=5  
+ # )
+ # db.fit(X)
+  #fd = AgglomerativeClustering()
+  #fd.fit(X)
+
   print("kMeans ++ run number: " + str(i))
   print("Clustering sparse data with %s" % km)
   t0 = time()
   km.fit(X)
   print("done in %0.3fs" % (time() - t0))
 
+  #print(DBS_clf.__doc__)
+ # print()
+ # print("fd labelse")
+
+  #print(fd.labels_) 
+
 # %%
 # Performance metrics
 # -------------------
 
+  vd = metrics.v_measure_score (labels, DBS_clf.labels_)
   v = metrics.v_measure_score (labels, km.labels_)
   h = metrics.homogeneity_score(labels, km.labels_)
   c = metrics.completeness_score(labels, km.labels_)
 
-  print("V-measure: %0.3f" % v)
-  print("Homogeneity: %0.3f" % h)
-  print("Completeness: %0.3f" % c)
+  print("Homogeneity: %0.3f" % metrics.homogeneity_score(labels, km.labels_))
+  print("Completeness: %0.3f" % metrics.completeness_score(labels, km.labels_))
+  print("V-measure: %0.3f" % metrics.v_measure_score(labels, km.labels_))
 
+  print("VD-measure: %0.3f" % vd)
+ 
   print("Adjusted Rand-Index: %.3f" %
       metrics.adjusted_rand_score(labels, km.labels_))
   print(
