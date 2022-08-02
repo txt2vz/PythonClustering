@@ -1,5 +1,5 @@
 # https://scikit-learn.org/stable/auto_examples/text/plot_document_clustering.html
-# Author: Peter Prettenhofer <peter.prettenhofer@gmail.com>
+# Author: Peter Prettenhofer <peter.prettenhofer@gmail.com>  zz
 #         Lars Buitinck
 # License: BSD 3 clause
 
@@ -20,9 +20,7 @@ import logging
 from optparse import OptionParser
 import sys
 from time import time
-
 import numpy as np
-
 
 # Display progress logs on stdout
 logging.basicConfig(level=logging.INFO,
@@ -70,15 +68,13 @@ op.add_option(
     help="Print progress reports inside k-means algorithm.",
 )
 
-print(__doc__)
-
+#print(__doc__)
 
 def is_interactive():
     return not hasattr(sys.modules["__main__"], "__file__")
 
-
 if not is_interactive():
-    op.print_help()
+ #   op.print_help()
     print()
 
 
@@ -105,11 +101,12 @@ categories = [
 # Uncomment the following to do the analysis on all the categories
 # categories = None
 
-print("Loading 20 newsgroups dataset for categories:")
-print(categories)
+#print("Loading 20 newsgroups dataset for categories:")
+#print(categories)
 
 d_folder = "C:/Data/"
-collection_name = "R5"
+#collection_name = "R5"
+collection_name = "crisis3"
 
 #container_path = Path("C:/Data/N3")
 #container_path = Path("C:/Data/NG3Full")
@@ -118,14 +115,13 @@ container_path = Path(d_folder + collection_name)
 #container_path = Path("C:/Data/R6Train")
 #container_path = Path("C:/Data/NG4")
 
-
 datan = sklearn.datasets.load_files(container_path,  description=None, categories=None, load_content=True,
                                     shuffle=True, encoding=None, decode_error='strict', random_state=0, allowed_extensions=None)
-print("%d categories  " % len(datan))
+#print("%d categories  " % len(datan))
 
-dataset = fetch_20newsgroups(
-    subset="all", categories=categories, shuffle=True, random_state=42
-)
+#dataset = fetch_20newsgroups(
+#    subset="all", categories=categories, shuffle=True, random_state=42
+#)
 
 dataset = datan
 
@@ -143,7 +139,6 @@ true_k = np.unique(labels).shape[0]
 
 print("Extracting features from the training dataset using a sparse vectorizer")
 t0 = time()
-
 
 if opts.use_hashing:
     if opts.use_idf:
@@ -163,6 +158,7 @@ if opts.use_hashing:
             norm="l2",
         )
 else:
+    print("tfidf vectorizer")
     vectorizer = TfidfVectorizer(
         max_df=0.5,
         max_features=opts.n_features,
@@ -171,13 +167,14 @@ else:
         use_idf=opts.use_idf,
     )
 
-for i in range(11):
+#clustering runs
+for i in range(3):
   X = vectorizer.fit_transform(dataset.data)
 
   print("done in %fs" % (time() - t0))
   print("n_samples: %d, n_features: %d" % X.shape)
   print()
-  print("kMeans++")
+ 
   km = KMeans(
       n_clusters=true_k,
       init="k-means++",
@@ -186,7 +183,7 @@ for i in range(11):
       verbose=opts.verbose,
   )
 
-  print(i)
+  print("kMeans ++ run number: " + str(i))
   print("Clustering sparse data with %s" % km)
   t0 = time()
   km.fit(X)
@@ -206,7 +203,6 @@ for i in range(11):
   print("Completeness: %0.3f" % metrics.completeness_score(labels, km.labels_))
   print("V-measure: %0.3f" % metrics.v_measure_score(labels, km.labels_))
 
-
   print("Adjusted Rand-Index: %.3f" %
       metrics.adjusted_rand_score(labels, km.labels_))
   print(
@@ -215,7 +211,7 @@ for i in range(11):
   )
 
   resultsFile = open ("resultsK.csv" , "a")
-  resultsFile.write(collection_name + " ,"  + str(v) + " \n")
+  resultsFile.write(collection_name + ", "  + str(v) + " \n")
 resultsFile.close()
 
 print()
