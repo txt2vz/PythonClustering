@@ -106,10 +106,12 @@ categories = [
 
 d_folder = "C:/Data/"
 #collection_name = "R4"
+#collection_name = "NG4"
 #collection_name = "crisis3"
 #collection_name = "NG5"
-collection_name = "NG6Full"
-#collection_name = "NG3Full"
+#collection_name = "NG6Full"
+collection_name = "NG3N"
+
 
 #container_path = Path("C:/Data/N3")
 #container_path = Path("C:/Data/NG3Full")
