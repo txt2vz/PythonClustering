@@ -24,8 +24,7 @@ import os
 data_folder = "C:/Data/DataSetForPaper2023/"
 
 #collection_list = ["crisis3", "NG3", "crisis4", "R4", "NG5", "R5", "NG6", "R6"]
-#collection_list = ["crisis5"]
-collection_list = ["crisis3"]
+collection_list = ["crisis3", "NG3"]
 
 for collectionName in collection_list:
 
