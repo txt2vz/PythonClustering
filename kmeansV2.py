@@ -134,24 +134,4 @@ for collectionName in collection_list:
                           ", " + str(h) + ", " + str(c) +  ", " + str(adjustedRand) + ", " + str(numDocs) + "\n")
 
         print()
-
-
-# %%
-
-        if not opts.use_hashing:
-            print("Top terms per cluster:")
-
-            if opts.n_components:
-                original_space_centroids = svd.inverse_transform(
-                    km.cluster_centers_)
-                order_centroids = original_space_centroids.argsort()[:, ::-1]
-            else:
-                order_centroids = km.cluster_centers_.argsort()[:, ::-1]
-
-            terms = vectorizer.get_feature_names_out()
-            for i in range(true_k):
-                print("Cluster %d:" % i, end="")
-                for ind in order_centroids[i, :10]:
-                    print(" %s" % terms[ind], end="")
-                print()
         resultsFile.close()
