@@ -1,6 +1,5 @@
 # https://scikit-learn.org/stable/auto_examples/text/plot_document_clustering.html
 
-
 from pathlib import Path
 import sklearn
 from sklearn.datasets import fetch_20newsgroups
@@ -22,20 +21,18 @@ import numpy as np
 import os
 
 
-d_folder = "C:/Data/DataSetForPaper2023/"
+data_folder = "C:/Data/DataSetForPaper2023/"
 
 #collection_list = ["crisis3", "NG3", "crisis4", "R4", "NG5", "R5", "NG6", "R6"]
 #collection_list = ["crisis5"]
 collection_list = ["crisis3"]
 
-
 for collectionName in collection_list:
 
-    container_path = Path(d_folder + collectionName)
+    container_path = Path(data_folder + collectionName)
 
     dataset = sklearn.datasets.load_files(container_path,  description=None, categories=None, load_content=True,
                                         shuffle=True, encoding='utf-8', decode_error='ignore', random_state=0, allowed_extensions=None)
-
 
     print("%d documents" % len(dataset.data))
     print("%d categories" % len(dataset.target_names))
@@ -75,11 +72,10 @@ for collectionName in collection_list:
         print("tfidf vectorizer")
         vectorizer = TfidfVectorizer(
             max_df=0.5,
-            max_features=opts.n_features,
+            max_features= 10000, #  opts.n_features,
             min_df=2,
             stop_words="english",
-            use_idf=opts.use_idf,
-
+            use_idf= True #opts.use_idf,
         )
 
 # clustering runs
