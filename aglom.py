@@ -15,6 +15,7 @@ from sklearn.preprocessing import Normalizer
 from sklearn import metrics
 
 from sklearn.cluster import DBSCAN, AgglomerativeClustering, KMeans, MiniBatchKMeans
+from sklearn.cluster import AgglomerativeClustering
 
 import logging
 from optparse import OptionParser
@@ -107,7 +108,7 @@ categories = [
 # print("Loading 20 newsgroups dataset for categories:")
 # print(categories)
 
-d_folder = "C:/Data/DataSetForPaper2023/"
+d_folder = "C:/Data/"
 # collection_name = "R4"
 # collection_name = "NG4"
 # collection_name = "crisis3"
@@ -186,7 +187,7 @@ for collectionName in collection_list:
         )
 
 # clustering runs
-    for i in range(3):
+    for i in range(2):
         X = vectorizer.fit_transform(dataset.data)
 
         print("done in %fs" % (time() - t0))
@@ -217,7 +218,6 @@ for collectionName in collection_list:
         v = metrics.v_measure_score(labels, km.labels_)
         h = metrics.homogeneity_score(labels, km.labels_)
         c = metrics.completeness_score(labels, km.labels_)
-        adjustedRand = metrics.adjusted_rand_score(labels, km.labels_)
 
         print("V-measure: %0.3f" % v)
         print("Homogeneity: %0.3f" % h)
@@ -232,10 +232,10 @@ for collectionName in collection_list:
         resultsFile = open(filePath, "a")
 
         if os.path.getsize(filePath) == 0:
-            resultsFile.write("index, v, h, c, adjustRand, numDocs \n")
+            resultsFile.write("index, v, h, c, numDocs \n")
 
         resultsFile.write(collectionName + ", " + str(v) +
-                          ", " + str(h) + ", " + str(c) +  ", " + str(adjustedRand) + ", " + str(numDocs) + "\n")
+                          ", " + str(h) + ", " + str(c) +  ", " + str(numDocs) + "\n")
 
         print()
 
