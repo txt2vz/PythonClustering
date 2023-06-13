@@ -23,7 +23,8 @@ import numpy as np
 import os
 from datetime import datetime
 
-data_folder = "C:/Data/DataSetForPaper2023/"
+#data_folder = "C:/Data/DataSetForPaper2023/"
+data_folder = "C:/Users/aceslh/Data/DataSetForPaper2023/"
 
 #collection_list = ["crisis3", "NG3", "crisis4", "R4", "NG5", "R5", "NG6", "R6"]
 collection_list = ["NG6"]
