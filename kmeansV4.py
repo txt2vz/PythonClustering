@@ -25,8 +25,8 @@ from datetime import datetime
 
 data_folder = "C:/Data/DataSetForPaper2023/"
 
-collection_list = ["crisis3", "NG3", "crisis4", "R4", "NG5", "R5", "NG6", "R6"]
-#collection_list = ["NG6"]
+#collection_list = ["crisis3", "NG3", "crisis4", "R4", "NG5", "R5", "NG6", "R6"]
+collection_list = ["NG6"]
 #collection_list = ["R6", "NG6"]
 
 for collectionName in collection_list:
@@ -106,11 +106,10 @@ for collectionName in collection_list:
         ag_c = metrics.completeness_score(labels, ag.labels_)
         ag_adjustedRand = metrics.adjusted_rand_score(labels, ag.labels_)
 
-        print(f"ag v {ag_v}  ag rand {ag_adjustedRand}")
-
         labelLength = ag.labels_
         uniqueLabel=len(np.unique(labelLength))
-        print(f"ag unique label length {uniqueLabel}")
+
+        print(f"ag v {ag_v}  ag rand {ag_adjustedRand} ag unique label length {uniqueLabel}")
 
         sc= SpectralClustering(n_clusters = true_k, affinity ='nearest_neighbors').fit(tvm)
 
