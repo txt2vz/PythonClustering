@@ -105,8 +105,8 @@ categories = [
 #print("Loading 20 newsgroups dataset for categories:")
 #print(categories)
 
-d_folder = "C:/Data/"
-collection_name = "R4"
+d_folder = "C:/Data/DataSetForPaper2023/"
+collection_name = "NG3"
 #collection_name = "crisis3"
 #collection_name = "N3"
 #collection_name = "NG3Full"
