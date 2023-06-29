@@ -106,8 +106,8 @@ categories = [
 #print(categories)
 
 d_folder = "C:/Data/DataSetForPaper2023/"
-collection_name = "NG3"
-#collection_name = "crisis3"
+#collection_name = "NG3"
+collection_name = "R6"
 #collection_name = "N3"
 #collection_name = "NG3Full"
 
@@ -217,26 +217,26 @@ for i in range(2):
 # Performance metrics
 # -------------------
 
-  vd = metrics.v_measure_score (labels, DBS_clf.labels_)
+  dbv = metrics.v_measure_score (labels, DBS_clf.labels_)
   v = metrics.v_measure_score (labels, km.labels_)
   h = metrics.homogeneity_score(labels, km.labels_)
   c = metrics.completeness_score(labels, km.labels_)
 
-  print("Homogeneity: %0.3f" % metrics.homogeneity_score(labels, km.labels_))
-  print("Completeness: %0.3f" % metrics.completeness_score(labels, km.labels_))
-  print("V-measure: %0.3f" % metrics.v_measure_score(labels, km.labels_))
+  #print("Homogeneity: %0.3f" % metrics.homogeneity_score(labels, km.labels_))
+  #print("Completeness: %0.3f" % metrics.completeness_score(labels, km.labels_))
+  #print("V-measure: %0.3f" % metrics.v_measure_score(labels, km.labels_))
 
-  print("VD-measure: %0.3f" % vd)
+  print("DB V-measure: %0.3f" % dbv)
  
-  print("Adjusted Rand-Index: %.3f" %
-      metrics.adjusted_rand_score(labels, km.labels_))
-  print(
-    "Silhouette Coefficient: %0.3f"
-    % metrics.silhouette_score(X, km.labels_, sample_size=1000)
-  )
+  #print("Adjusted Rand-Index: %.3f" %
+  #    metrics.adjusted_rand_score(labels, km.labels_))
+ # print(
+ #   "Silhouette Coefficient: %0.3f"
+ #   % metrics.silhouette_score(X, km.labels_, sample_size=1000)
+ # )
 
-  resultsFile = open ("resultsK.csv" , "a")
-  resultsFile.write(collection_name + ", "  + str(v) + " \n")
+  resultsFile = open ("resultsDBv.csv" , "a")
+  resultsFile.write(collection_name + ", "  + str(dbv) + " \n")
 resultsFile.close()
 
 print()

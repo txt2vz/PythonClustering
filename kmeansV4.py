@@ -101,7 +101,7 @@ for collectionName in collection_list:
     print(f"spectral v {sc_v} spectral adjustred rand {sc_adjustedRand}")
     
     # clustering runs
-    for i in range(31):
+    for i in range(11):
 
         km = KMeans(
             n_clusters=true_k,
